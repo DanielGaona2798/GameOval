@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 
+import controller.Controller;
+
 
 public class MainWindow extends JFrame{
 
@@ -12,15 +14,20 @@ public class MainWindow extends JFrame{
 
 	private PanelGraphics graphics;
 	
-	public MainWindow(Rectangle player) {
+	public MainWindow(Rectangle player,Controller controller) {
+		this.addKeyListener(controller);
 		setTitle("Runner Soft");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setLayout(new BorderLayout());
 		
-		graphics = new PanelGraphics(player);
+		graphics = new PanelGraphics(player, controller);
 		add(graphics, BorderLayout.CENTER);
 		setVisible(true);
+	}
+
+	public void repaintAll() {
+		graphics.repaint();
 	}
 
 }

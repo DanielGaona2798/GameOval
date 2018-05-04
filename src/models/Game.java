@@ -21,9 +21,9 @@ public class Game {
 		player.setLocation(player.x - 50, player.y);
 	}
 	public void changeLocationUp() {
-		player.setLocation(player.x, player.y + 50);
+		player.setLocation(player.x, player.y - 50);
 	}
 	public void changeLocationDown() {
-		player.setLocation(player.x, player.y- 50);
+		player.setLocation(player.x, player.y + 50);
 	}
 }

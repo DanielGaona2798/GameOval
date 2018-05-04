@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
+import controller.Controller;
+
 
 
 public class PanelGraphics extends JPanel{
@@ -14,7 +16,8 @@ public class PanelGraphics extends JPanel{
 
 	private Rectangle rectangle;
 	
-	public PanelGraphics(Rectangle rectangle) {
+	public PanelGraphics(Rectangle rectangle, Controller controller) {
+		this.addKeyListener(controller);
 		this.rectangle = rectangle;
 	}
 	
@@ -24,6 +27,4 @@ public class PanelGraphics extends JPanel{
 		g.fillOval(rectangle.x,rectangle.y,(int)rectangle.getWidth(),(int)rectangle.getHeight());
 	}
 
-	
-	
 }
