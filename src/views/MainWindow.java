@@ -14,14 +14,14 @@ public class MainWindow extends JFrame{
 
 	private PanelGraphics graphics;
 	
-	public MainWindow(Rectangle player,Controller controller) {
+	public MainWindow(Rectangle player,Rectangle enemy ,Controller controller) {
 		this.addKeyListener(controller);
 		setTitle("Runner Soft");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setLayout(new BorderLayout());
 		
-		graphics = new PanelGraphics(player, controller);
+		graphics = new PanelGraphics(player, enemy,controller);
 		add(graphics, BorderLayout.CENTER);
 		setVisible(true);
 	}

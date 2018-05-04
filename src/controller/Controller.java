@@ -7,17 +7,18 @@ import models.Game;
 import views.MainWindow;
 
 
-public class Controller implements KeyListener{
+public class Controller implements KeyListener, Runnable{
 
 	private MainWindow mainWindow;
 	private Game game;
+	private Thread thread;
 
 	public Controller(){
 		game = new Game();
-		mainWindow = new MainWindow(game.getPlayer(), this);
+		mainWindow = new MainWindow(game.getPlayer(),game.getEnemy(), this);
+		thread = new Thread(this);
+		thread.start();
 	}
-
-
 
 	@Override
 	public void keyPressed(KeyEvent keyEvent) {
@@ -43,18 +44,25 @@ public class Controller implements KeyListener{
 		}
 	}
 
-	
-
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			game.searchEnemy();
+			mainWindow.repaintAll();
+		}
 	}
 
 }
