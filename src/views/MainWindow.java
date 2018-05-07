@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -14,14 +15,14 @@ public class MainWindow extends JFrame{
 
 	private PanelGraphics graphics;
 	
-	public MainWindow(Rectangle player,Rectangle enemy ,Controller controller) {
+	public MainWindow(Rectangle player,ArrayList<Rectangle> enemy,ArrayList<Rectangle> shots ,Controller controller) {
 		this.addKeyListener(controller);
 		setTitle("Runner Soft");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setLayout(new BorderLayout());
 		
-		graphics = new PanelGraphics(player, enemy,controller);
+		graphics = new PanelGraphics(player, enemy,shots,controller);
 		add(graphics, BorderLayout.CENTER);
 		setVisible(true);
 	}
@@ -29,5 +30,7 @@ public class MainWindow extends JFrame{
 	public void repaintAll() {
 		graphics.repaint();
 	}
+
+
 
 }

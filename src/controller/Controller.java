@@ -1,23 +1,32 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.Timer;
 
 import models.Game;
 import views.MainWindow;
 
 
-public class Controller implements KeyListener, Runnable{
+public class Controller implements KeyListener{
 
 	private MainWindow mainWindow;
 	private Game game;
-	private Thread thread;
 
 	public Controller(){
-		game = new Game();
-		mainWindow = new MainWindow(game.getPlayer(),game.getEnemy(), this);
-		thread = new Thread(this);
-		thread.start();
+		game = new Game(500);
+		mainWindow = new MainWindow(game.getPlayer(),game.getEnemyList(), game.getShots(), this);
+		Timer timer = new Timer(1, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainWindow.repaintAll();
+			}
+		});
+		timer.start();
 	}
 
 	@Override
@@ -39,7 +48,8 @@ public class Controller implements KeyListener, Runnable{
 			game.changeLocationUp();
 			mainWindow.repaintAll();
 			break;
-		default:
+		case KeyEvent.VK_SPACE:
+			game.addShot(game.getPlayer());
 			break;
 		}
 	}
@@ -52,17 +62,5 @@ public class Controller implements KeyListener, Runnable{
 	public void keyTyped(KeyEvent arg0) {
 	}
 
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			game.searchEnemy();
-			mainWindow.repaintAll();
-		}
-	}
 
 }
