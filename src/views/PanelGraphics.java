@@ -3,7 +3,7 @@ package views;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -14,15 +14,15 @@ public class PanelGraphics extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	private Rectangle player;
-	private ArrayList<Rectangle> enemy;
-	private ArrayList<Rectangle> shots;
+	private List<Rectangle> enemy;
+	private List<Rectangle> shots;
 	private int lifes;
 	
-	public PanelGraphics(int lifes,Rectangle rectangle,ArrayList<Rectangle> enemy,ArrayList<Rectangle> shots, Controller controller) {
+	public PanelGraphics(int lifes,Rectangle rectangle,List<Rectangle> list,List<Rectangle> list2, Controller controller) {
 		this.addKeyListener(controller);
 		this.player = rectangle;
-		this.enemy = enemy;
-		this.shots = shots;
+		this.enemy = list;
+		this.shots = list2;
 		this.lifes = lifes;
 	}
 

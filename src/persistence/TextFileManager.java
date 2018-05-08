@@ -27,7 +27,7 @@ public class TextFileManager {
 		return personList;
 	}
 	
-	public void writeFile(ArrayList<Rectangle> list, String path) {
+	public void writeFile(List<Rectangle> list, String path) {
 		ArrayList<String> listAux = new ArrayList<>();
 		for (Rectangle string : list) {
 			listAux.add(string.x + "#" + string.y);

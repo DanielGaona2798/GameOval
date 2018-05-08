@@ -3,6 +3,8 @@ package models;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -11,8 +13,8 @@ import persistence.TextFileManager;
 public class Game extends GameThread{
 
 	private Rectangle player;
-	private ArrayList<Rectangle> enemyList;
-	private ArrayList<Rectangle> shots;
+	private List<Rectangle> enemyList;
+	private List<Rectangle> shots;
 	private int count;
 	private int enemys;
 	private TextFileManager fileManager;
@@ -86,24 +88,24 @@ public class Game extends GameThread{
 			fileManager.writeFile(enemyList, "src/datos/enemy.txt");
 			count = 0;
 		}
-		if (enemys == 100) {
+		if (enemys == 20) {
 			enemyList.add(new Rectangle(1250, 800, 50, 50));
+			enemys = 0;
 		}
 	}
 
 	private void coalitionShot() {
-		for (Rectangle rectangle : enemyList) {
-			for (Rectangle shot : shots) {
-				if (shot.intersects(rectangle)) {
-					enemyList.remove(rectangle);
+		for (Iterator<Rectangle> shoot = shots.iterator(); shoot.hasNext();) {
+			Rectangle s = shoot.next();
+			for (Iterator<Rectangle> enemy =  enemyList.iterator(); enemy.hasNext();) {
+				Rectangle e = enemy.next();
+				if(s.intersects(e) && e.getWidth() == 50) {
+					enemy.remove();
 				}
 			}
 		}
 	}
 
-	public ArrayList<Rectangle> getEnemyList() {
-		return enemyList;
-	}
 	
 	public void coalition() {
 		for (Rectangle rectangle : enemyList) {
@@ -117,9 +119,16 @@ public class Game extends GameThread{
 		}
 	}
 
-	public ArrayList<Rectangle> getShots() {
+
+	
+	public List<Rectangle> getEnemyList() {
+		return enemyList;
+	}
+
+	public List<Rectangle> getShots() {
 		return shots;
 	}
+
 
 	public int getLifes() {
 		return lifes;
