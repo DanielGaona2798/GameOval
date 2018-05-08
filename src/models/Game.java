@@ -14,6 +14,7 @@ public class Game extends GameThread{
 	private ArrayList<Rectangle> enemyList;
 	private ArrayList<Rectangle> shots;
 	private int count;
+	private int enemys;
 	private TextFileManager fileManager;
 	private int lifes = 3;
 	
@@ -80,9 +81,13 @@ public class Game extends GameThread{
 		coalition();
 		coalitionShot();
 		count ++;
+		enemys ++;
 		if (count == 10) {
 			fileManager.writeFile(enemyList, "src/datos/enemy.txt");
 			count = 0;
+		}
+		if (enemys == 100) {
+			enemyList.add(new Rectangle(1250, 800, 50, 50));
 		}
 	}
 
