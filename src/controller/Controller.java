@@ -18,7 +18,7 @@ public class Controller implements KeyListener{
 
 	public Controller(){
 		game = new Game(500);
-		mainWindow = new MainWindow(game.getPlayer(),game.getEnemyList(), game.getShots(), this);
+		mainWindow = new MainWindow(game.getLifes(),game.getPlayer(),game.getEnemyList(), game.getShots(), this);
 		Timer timer = new Timer(1, new ActionListener() {
 			
 			@Override

@@ -16,16 +16,21 @@ public class PanelGraphics extends JPanel{
 	private Rectangle player;
 	private ArrayList<Rectangle> enemy;
 	private ArrayList<Rectangle> shots;
-
-	public PanelGraphics(Rectangle rectangle,ArrayList<Rectangle> enemy,ArrayList<Rectangle> shots, Controller controller) {
+	private int lifes;
+	
+	public PanelGraphics(int lifes,Rectangle rectangle,ArrayList<Rectangle> enemy,ArrayList<Rectangle> shots, Controller controller) {
 		this.addKeyListener(controller);
 		this.player = rectangle;
 		this.enemy = enemy;
 		this.shots = shots;
+		this.lifes = lifes;
 	}
 
 	public void paint(Graphics g){
 		super.paint(g);
+		g.setColor(Color.RED);
+		g.drawString(String.valueOf(lifes), 10, 10);
+		g.drawString("lifes", 0, 20);
 		g.setColor(Color.BLUE);
 		g.fillOval(player.x,player.y,(int)player.getWidth(),(int)player.getHeight());
 		g.setColor(Color.YELLOW);

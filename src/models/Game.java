@@ -1,23 +1,33 @@
 package models;
 
 import java.awt.Rectangle;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import persistence.TextFileManager;
 
 public class Game extends GameThread{
 
 	private Rectangle player;
 	private ArrayList<Rectangle> enemyList;
 	private ArrayList<Rectangle> shots;
+	private int count;
+	private TextFileManager fileManager;
+	private int lifes = 3;
 	
 	public Game(int sleep) {
 		super(sleep);
+		fileManager = new TextFileManager();
 		player = new Rectangle(100,300,50,50);
 		enemyList = new ArrayList<>();
 		shots = new ArrayList<>();
-		enemyList.add(new Rectangle(10, 10, 50, 50));
-		enemyList.add(new Rectangle(1250, 800, 50, 50));
+		try {
+			enemyList = fileManager.readFile("src/datos/enemy.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		start();
 	}
 
@@ -69,6 +79,11 @@ public class Game extends GameThread{
 		moveShot();
 		coalition();
 		coalitionShot();
+		count ++;
+		if (count == 10) {
+			fileManager.writeFile(enemyList, "src/datos/enemy.txt");
+			count = 0;
+		}
 	}
 
 	private void coalitionShot() {
@@ -88,15 +103,21 @@ public class Game extends GameThread{
 	public void coalition() {
 		for (Rectangle rectangle : enemyList) {
 			if (rectangle.intersects(player)) {
-				JOptionPane.showMessageDialog(null, "You Lose");
+				lifes --;
+				player.setLocation(100, 300);
+			}else if (lifes == 0) {	
+				JOptionPane.showMessageDialog(null, "You lose");
 				System.exit(0);
-
 			}
 		}
 	}
 
 	public ArrayList<Rectangle> getShots() {
 		return shots;
+	}
+
+	public int getLifes() {
+		return lifes;
 	}
 	
 }
